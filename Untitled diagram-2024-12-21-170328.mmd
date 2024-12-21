@@ -1,0 +1,48 @@
+classDiagram
+    class Channel {
+        -int ID
+        -string Name
+        -string Description
+        -enum Visibility
+        -int CreatedBy
+        -string Type
+        -string Tag
+        -timestamp CreatedAt
+    }
+
+    class Member {
+        -int ID
+        -string Name
+        -string Nickname
+        -string Type
+        -string Tag
+        -timestamp CreatedAt
+    }
+
+    class SessionMembers {
+        -int SessionID
+        -int MemberID
+        -string Type
+        -string Tag
+        -bool IsAdmin
+        -bool IsModerator
+        -string AccessKey
+        -string Role
+        -bool IsActive
+        -int Ordinal
+        -timestamp CreatedAt
+        -binaryArray Position
+    }
+
+    class Message {
+        -int ID
+        -text Text
+        -text Payload
+        -int ParentID
+        -bool IsHidden
+        -bool IsMaskedText
+        -binaryArray DeliveredTo
+        -binaryArray SeenBy
+        -int SessionID
+        -timestamp CreatedAt
+    }
