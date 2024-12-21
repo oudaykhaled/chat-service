@@ -1,0 +1,57 @@
+classDiagram
+    class Channel {
+        -String id
+        -String name
+        -String description
+        -Enum visibility
+        -String createdBy
+        -String type
+        -String tag
+        -Timestamp createdAt
+    }
+
+    class Member {
+        -String id
+        -String name
+        -String nickname
+        -String type
+        -String tag
+        -Timestamp createdAt
+    }
+
+    class SessionMembers {
+        -String sessionId
+        -String memberId
+        -String type
+        -String tag
+        -Boolean isAdmin
+        -Boolean isModerator
+        -String accessKey
+        -String role
+        -Boolean isActive
+        -Integer ordinal
+        -Timestamp createdAt
+        -Binary position
+    }
+
+    class Message {
+        -String id
+        -Text text
+        -Text payload
+        -String parentId
+        -String bindedMessageId
+        -Boolean isHidden
+        -Boolean isDeleted
+        -Boolean isEdited
+        -Text messageLogs
+        -Boolean isMaskedText
+        -Binary deliveredTo
+        -Binary seenBy
+        -String sessionId
+        -Timestamp createdAt
+    }
+
+    Channel "1" o-- "*" SessionMembers : consists of
+    SessionMembers "1" o-- "*" Member : includes
+    Channel "1" --> "*" Message : contains
+    Member <|-- SessionMembers : participates in
