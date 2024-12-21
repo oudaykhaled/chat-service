@@ -62,7 +62,7 @@ This document describes the flow of the messaging process in a chat application,
 
 ```mermaid
 graph TD
-  A[Start HTTP] -->|OK| B[Process Message]
+  A[Start HTTP] -->|OK| B[Nats Queuing]
   B --> E[Pre-moderation]
   E -.->|Async| C[Side Effect Dispatcher]
   C -.->|Async| D1[Pre moderator 1]
