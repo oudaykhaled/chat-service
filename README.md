@@ -30,7 +30,7 @@ The aim of the Chatting Microservice is to provide a comprehensive solution for 
 - [Full API Specifications](documentation/openapi.yaml)
 - [Messaging Process Overview](documentation/Messaging_Process_Flow_Documentation.md)
 - [Database Schema Details](documentation/UML_Class_Diagram.mmd)
-- [Firebase RealTime Database Documentation](Firebase_Realtime_Database_Documentation.md)
+- [Firebase RealTime Database Documentation](documentation/Firebase_Realtime_Database_Documentation.md)
 
 ## Setup and Deployment
 Follow the setup instructions as outlined in the linked documentation to configure and deploy the microservice.
