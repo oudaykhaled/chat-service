@@ -68,8 +68,6 @@ graph TD
   C -.->|Async| D1[Pre moderator 1]
   C -.->|Async| D2[Pre moderator 2]
   C -.->|Async| D3[Pre moderator 3]
-  E --> F[Send to Moderator]
-  F -->|Sync| G[Moderator Dispatcher]
   E --> X{Have moderator dispatcher?}
   X -->|Yes| H[Send To Moderator]
   H --> I[Moderator Dispatcher]
