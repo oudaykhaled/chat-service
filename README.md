@@ -81,8 +81,7 @@ graph TD
   J --> N[Update Realtime Firebase DB]
   N --> O[Exit]
 
-  classDef sync fill:#f9f,stroke:#333,stroke-width:2px;
-  classDef async fill:#ccf,stroke:#333,stroke-width:2px;
+  classDef async fill:#ff0,stroke:#333,stroke-width:2px;
   class I,D1,D2,D3,L,M async;
-
 ```
+
