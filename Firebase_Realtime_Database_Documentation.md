@@ -47,6 +47,7 @@ Path: `/messages/{messageId}`
 - **Text** (Text): Content of the message.
 - **Payload** (Text): Any additional data attached to the message.
 - **ParentID** (GUID): ID of the parent message, for thread handling.
+- **BindedMessageID** (GUID): ID of the parent message, for thread handling.
 - **IsHidden** (Boolean): Flag to hide the message from normal view.
 - **IsMaskedText** (Boolean): Flag to indicate text masking for privacy.
 - **DeliveredTo** (Binary Array): Array of member IDs to whom the message has been delivered.
