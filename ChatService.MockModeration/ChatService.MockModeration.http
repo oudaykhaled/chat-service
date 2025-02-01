@@ -1,0 +1,6 @@
+@ChatService.MockModeration_HostAddress = http://localhost:5122
+
+GET {{ChatService.MockModeration_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

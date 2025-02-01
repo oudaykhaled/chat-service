@@ -1,0 +1,11 @@
+services:
+  nats-broker:
+    image: nats:latest
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+      - "6222:6222"
+    command: "-c /etc/myserver.conf --name 'nats-broker' -p 4222"
+    volumes:
+      - ./server.conf:/etc/myserver.conf
+      - ./nats-data:/nats/storage

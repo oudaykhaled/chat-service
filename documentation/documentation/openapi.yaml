@@ -1,0 +1,858 @@
+openapi: 3.0.0
+info:
+  title: Chat Application APIs
+  description: A set of APIs for managing members, channels, and messages in a chat application.
+  version: "1.0.0"
+servers:
+  - url: https://api.example.com/v1
+    description: Production server
+tags:
+  - name: Members
+  - name: Channels
+  - name: Messages
+
+paths:
+  /members:
+    post:
+      tags:
+        - Members
+      summary: Create a new member
+      description: Create a new member in the `/members` table.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberCreateRequest'
+      responses:
+        '201':
+          description: Member created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+        '400':
+          description: Bad Request
+          
+  /members/{memberId}/deactivate:
+    patch:
+      tags:
+        - Members
+      summary: Deactivate a member
+      description: Deactivates a member, changing their `isActive` state to `false` or removing any access privileges.
+      parameters:
+        - in: path
+          name: memberId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The GUID of the member
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                  description: Optional reason for deactivation
+              example:
+                reason: "Member requested account deactivation"
+      responses:
+        '200':
+          description: Member deactivated successfully
+        '404':
+          description: Member not found
+
+
+  /channels:
+    post:
+      tags:
+        - Channels
+      summary: Create a new channel and optionally add members
+      description: Create a new channel in the `/channels` table. You can also provide an array of member IDs to add them upon creation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChannelCreateRequest'
+      responses:
+        '201':
+          description: Channel created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+        '400':
+          description: Bad Request
+
+  /channels/{channelId}/members:
+    post:
+      tags:
+        - Channels
+      summary: Add members to an existing channel
+      description: Add one or more members to the specified channel in the `/sessionMembers` table.
+      parameters:
+        - in: path
+          name: channelId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The GUID of the channel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionMembersCreateRequest'
+      responses:
+        '200':
+          description: Members added to the channel
+        '400':
+          description: Bad Request
+        '404':
+          description: Channel not found
+
+  /channels/{channelId}/deactivate:
+    patch:
+      tags:
+        - Channels
+      summary: Deactivate a channel
+      description: Deactivates a channel, changing its `isActive` state to `false` or preventing further use.
+      parameters:
+        - in: path
+          name: channelId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The GUID of the channel
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                  description: Optional reason for channel deactivation
+              example:
+                reason: "Channel is no longer needed"
+      responses:
+        '200':
+          description: Channel deactivated successfully
+        '404':
+          description: Channel not found
+          
+  /channels/{channelId}/messages:
+    post:
+      tags:
+        - Messages
+      summary: Add a message to a channel
+      description: Add a new message to the `/messages` table for the specified channel.
+      parameters:
+        - in: path
+          name: channelId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The GUID of the channel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageCreateRequest'
+      responses:
+        '201':
+          description: Message created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: Bad Request
+        '404':
+          description: Channel not found
+
+  /channels/{channelId}/members/{memberId}:
+    delete:
+      tags:
+        - Channels
+      summary: Remove a member from a channel
+      description: Removes the specified member from the given channel, effectively deleting their `sessionMembers` record.
+      parameters:
+        - in: path
+          name: channelId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: memberId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Member removed from the channel (no content returned)
+        '404':
+          description: Channel or Member not found
+
+  /channels/{channelId}/messages/{messageId}/reply:
+    post:
+      tags:
+        - Messages
+      summary: Reply to an existing message
+      description: Create a new message that references a parent message in a thread.
+      parameters:
+        - in: path
+          name: channelId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: messageId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageReplyRequest'
+      responses:
+        '201':
+          description: Reply message created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: Bad Request
+        '404':
+          description: Channel or message not found
+
+  /channels/{channelId}/members/{memberId}/admin:
+    patch:
+      tags:
+        - Channels
+      summary: Mark a member as channel admin
+      description: Updates the `sessionMembers` record to set `isAdmin` to true for the specified member in the channel.
+      parameters:
+        - in: path
+          name: channelId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The GUID of the channel
+        - in: path
+          name: memberId
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: The GUID of the member
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                  description: Optional reason or note for granting admin privileges
+              example:
+                reason: "Promoted to admin for channel moderation"
+      responses:
+        '200':
+          description: Member marked as channel admin
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  memberId:
+                    type: string
+                    format: uuid
+                  isAdmin:
+                    type: boolean
+                example:
+                  memberId: "4bdc4e99-8aad-456b-a849-46defc60feb5"
+                  isAdmin: true
+        '404':
+          description: Channel or Member not found
+
+  /channels/{channelId}/messages/{messageId}/bind:
+    post:
+      tags:
+        - Messages
+      summary: Bind one message to another
+      description: Bind a message (e.g., attach text to audio) to another message by specifying a BindedMessageID.
+      parameters:
+        - in: path
+          name: channelId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: messageId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageBindRequest'
+      responses:
+        '200':
+          description: Message bound successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: Bad Request
+        '404':
+          description: Channel or message not found
+
+  /channels/{channelId}/messages/{messageId}:
+    delete:
+      tags:
+        - Messages
+      summary: Delete a message
+      description: Soft delete or remove the message by setting `IsDeleted` to true in the `/messages` table.
+      parameters:
+        - in: path
+          name: channelId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: messageId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Message deleted successfully (no content)
+        '404':
+          description: Channel or message not found
+
+  /channels/{channelId}/messages/{messageId}/mask:
+    patch:
+      tags:
+        - Messages
+      summary: Mask the content of a message
+      description: Update a message by setting `IsMaskedText` to true.
+      parameters:
+        - in: path
+          name: channelId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: messageId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                  description: Optional reason or note why this message is being masked
+              example:
+                reason: "Contains sensitive information"
+      responses:
+        '200':
+          description: Message masked successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '404':
+          description: Channel or message not found
+
+  /channels/{channelId}/messages/{messageId}/hide:
+    patch:
+      tags:
+        - Messages
+      summary: Hide a message
+      description: Update a message by setting `IsHidden` to true (usually done by a system or moderator).
+      parameters:
+        - in: path
+          name: channelId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: messageId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                  description: Optional reason or note why this message is being hidden
+              example:
+                reason: "Violated community guidelines"
+      responses:
+        '200':
+          description: Message hidden successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '404':
+          description: Channel or message not found
+
+  /channels/{channelId}/messages/{messageId}/unmask:
+    patch:
+      tags:
+        - Messages
+      summary: Unmask a message
+      description: Update a message by setting `IsMaskedText` to false.
+      parameters:
+        - in: path
+          name: channelId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: messageId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                  description: Optional reason or note for unmasking
+              example:
+                reason: "User requested content to be visible"
+      responses:
+        '200':
+          description: Message unmasked successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '404':
+          description: Channel or message not found
+
+  /channels/{channelId}/messages/{messageId}/delivered:
+    post:
+      tags:
+        - Messages
+      summary: Mark message as delivered to certain members
+      description: Add one or more member IDs to the `DeliveredTo` array in the message record.
+      parameters:
+        - in: path
+          name: channelId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: messageId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                memberIds:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+              required:
+                - memberIds
+      responses:
+        '200':
+          description: Delivered to updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: Bad Request
+        '404':
+          description: Channel or message not found
+
+  /channels/{channelId}/messages/{messageId}/seen:
+    post:
+      tags:
+        - Messages
+      summary: Mark message as seen by certain members
+      description: Add one or more member IDs to the `SeenBy` array in the message record.
+      parameters:
+        - in: path
+          name: channelId
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: messageId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                memberIds:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+              required:
+                - memberIds
+      responses:
+        '200':
+          description: SeenBy updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '400':
+          description: Bad Request
+        '404':
+          description: Channel or message not found
+
+components:
+  schemas:
+    # ============== MEMBERS ==============
+    MemberCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        nickname:
+          type: string
+        type:
+          type: string
+          description: Member type, e.g. admin, user, etc.
+        tag:
+          type: string
+      required:
+        - name
+      example:
+        name: John Doe
+        nickname: johnny
+        type: user
+        tag: developer
+
+    Member:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        nickname:
+          type: string
+        type:
+          type: string
+        tag:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      example:
+        id: 123e4567-e89b-12d3-a456-426614174000
+        name: John Doe
+        nickname: johnny
+        type: user
+        tag: developer
+        createdAt: 2024-01-01T00:00:00Z
+
+    # ============== CHANNELS ==============
+    ChannelCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        visibility:
+          type: string
+          enum: [Private, Internal, Public]
+        createdBy:
+          type: string
+          format: uuid
+        type:
+          type: string
+          description: Channel type, e.g. text, voice
+        tag:
+          type: string
+        members:
+          type: array
+          description: Optional array of member IDs to add to the channel
+          items:
+            type: string
+            format: uuid
+      required:
+        - name
+        - visibility
+        - createdBy
+      example:
+        name: Dev Channel
+        description: Channel for dev discussions
+        visibility: Private
+        createdBy: 123e4567-e89b-12d3-a456-426614174000
+        type: text
+        tag: project
+        members:
+          - 2f8b763b-4be1-45ef-8fd4-6626a5403ee6
+          - 4bdc4e99-8aad-456b-a849-46defc60feb5
+
+    Channel:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        visibility:
+          type: string
+          enum: [Private, Internal, Public]
+        createdBy:
+          type: string
+          format: uuid
+        type:
+          type: string
+        tag:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      example:
+        id: 2fa11950-c4d8-4ccb-8ab9-173c8cb14b18
+        name: Dev Channel
+        description: Channel for dev discussions
+        visibility: Private
+        createdBy: 123e4567-e89b-12d3-a456-426614174000
+        type: text
+        tag: project
+        createdAt: 2024-01-01T00:00:00Z
+
+    # ============== SESSION MEMBERS ==============
+    SessionMembersCreateRequest:
+      type: object
+      properties:
+        memberIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        isAdmin:
+          type: boolean
+          default: false
+        isModerator:
+          type: boolean
+          default: false
+        accessKey:
+          type: string
+          description: Optional key if special access is needed
+        role:
+          type: string
+        tag:
+          type: string
+        isActive:
+          type: boolean
+          default: true
+        ordinal:
+          type: integer
+          description: Ordering in the session
+      required:
+        - memberIds
+      example:
+        memberIds:
+          - 2f8b763b-4be1-45ef-8fd4-6626a5403ee6
+          - 4bdc4e99-8aad-456b-a849-46defc60feb5
+        isAdmin: false
+        isModerator: false
+        accessKey: "somespecialkey"
+        role: developer
+        tag: randomTag
+        isActive: true
+        ordinal: 1
+
+    # ============== MESSAGES ==============
+    MessageCreateRequest:
+      type: object
+      properties:
+        text:
+          type: string
+        payload:
+          type: string
+        parentId:
+          type: string
+          format: uuid
+          nullable: true
+        sessionId:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - text
+        - sessionId
+      example:
+        text: Hello world
+        payload: '{"attachment":"image.png"}'
+        parentId: null
+        sessionId: 1bba5e2f-d61d-4898-8f6c-c1b3eca47d4f
+        createdAt: 2024-01-01T00:00:00Z
+
+    MessageReplyRequest:
+      type: object
+      properties:
+        text:
+          type: string
+        payload:
+          type: string
+        sessionId:
+          type: string
+          format: uuid
+      required:
+        - text
+        - sessionId
+      example:
+        text: This is a reply
+        payload: '{"some":"value"}'
+        sessionId: 1bba5e2f-d61d-4898-8f6c-c1b3eca47d4f
+
+    MessageBindRequest:
+      type: object
+      properties:
+        bindedMessageId:
+          type: string
+          format: uuid
+      required:
+        - bindedMessageId
+      example:
+        bindedMessageId: 3c463bfc-5270-41d9-a5c2-ef9fa1af5620
+
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        text:
+          type: string
+        payload:
+          type: string
+        parentId:
+          type: string
+          format: uuid
+          nullable: true
+        bindedMessageId:
+          type: string
+          format: uuid
+          nullable: true
+        isHidden:
+          type: boolean
+          default: false
+        isDeleted:
+          type: boolean
+          default: false
+        isEdited:
+          type: boolean
+          default: false
+        isMaskedText:
+          type: boolean
+          default: false
+        messageLogs:
+          type: string
+          description: JSON array string of logs (edited, deleted, etc.)
+        deliveredTo:
+          type: array
+          items:
+            type: string
+            format: uuid
+        seenBy:
+          type: array
+          items:
+            type: string
+            format: uuid
+        sessionId:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      example:
+        id: 7b4bdfed-ae42-4ece-8c41-053d31feb0fd
+        text: "Hello world"
+        payload: '{"attachment":"image.png"}'
+        parentId: null
+        bindedMessageId: null
+        isHidden: false
+        isDeleted: false
+        isEdited: false
+        isMaskedText: false
+        messageLogs: '[{"action":"created","timestamp":"2024-01-01T00:00:00Z"}]'
+        deliveredTo:
+          - 123e4567-e89b-12d3-a456-426614174000
+        seenBy:
+          - 2f8b763b-4be1-45ef-8fd4-6626a5403ee6
+        sessionId: 1bba5e2f-d61d-4898-8f6c-c1b3eca47d4f
+        createdAt: 2024-01-01T00:00:00Z
