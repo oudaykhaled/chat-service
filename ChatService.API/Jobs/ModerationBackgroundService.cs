@@ -68,40 +68,41 @@ namespace ChatService.API.Jobs
                                 string json = await response.Content.ReadAsStringAsync();
                                 if (!string.IsNullOrWhiteSpace(json))
                                 {
-                                    var moderatedMessage = JsonSerializer.Deserialize<MessageResponse>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                                    if (moderatedMessage != null)
-                                    {
-                                        var moderationResponse = await _messageService.ModerateMessageAsync(new Domain.Request.ModerateMessageRequest()
-                                        {
-                                            ChannelID = _channelID,
-                                            CreatedAt = moderatedMessage.CreatedAt,
-                                            Guid = moderatedMessage.Guid,
-                                            MemberID = moderatedMessage.MemberID,
-                                            MessageID = moderatedMessage.MessageID,
-                                            ParentID = moderatedMessage.ParentID,
-                                            SessionID = moderatedMessage.SessionID,
-                                            Payload = moderatedMessage.Payload,
-                                            Text = moderatedMessage.Text,
-                                        });
-
-                                        if (_moderationOptions.Post != null && _moderationOptions.Post.Any())
-                                        {
-                                            var sideEffectResponse = await _messageService.SideEffectAsync(new Domain.Request.SideEffectRequest()
-                                            {
-                                                ModerationType = ModerationType.Post,
-                                                ChannelID = _channelID,
-                                                CreatedAt = moderatedMessage.CreatedAt,
-                                                Guid = moderatedMessage.Guid,
-                                                MemberID = moderatedMessage.MemberID,
-                                                MessageID = moderatedMessage.MessageID,
-                                                ParentID = moderatedMessage.ParentID,
-                                                SessionID = moderatedMessage.SessionID,
-                                                Payload = moderatedMessage.Payload,
-                                                Text = moderatedMessage.Text,
-                                            });
-                                        }
-                                    }
+                                    message = JsonSerializer.Deserialize<MessageResponse>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                                 }
+                            }
+                        }
+
+                        if (message != null)
+                        {
+                            var moderationResponse = await _messageService.ModerateMessageAsync(new Domain.Request.ModerateMessageRequest()
+                            {
+                                ChannelID = _channelID,
+                                CreatedAt = message.CreatedAt,
+                                Guid = message.Guid,
+                                MemberID = message.MemberID,
+                                MessageID = message.MessageID,
+                                ParentID = message.ParentID,
+                                SessionID = message.SessionID,
+                                Payload = message.Payload,
+                                Text = message.Text,
+                            });
+
+                            if (_moderationOptions.Post != null && _moderationOptions.Post.Any())
+                            {
+                                var sideEffectResponse = await _messageService.SideEffectAsync(new Domain.Request.SideEffectRequest()
+                                {
+                                    ModerationType = ModerationType.Post,
+                                    ChannelID = _channelID,
+                                    CreatedAt = message.CreatedAt,
+                                    Guid = message.Guid,
+                                    MemberID = message.MemberID,
+                                    MessageID = message.MessageID,
+                                    ParentID = message.ParentID,
+                                    SessionID = message.SessionID,
+                                    Payload = message.Payload,
+                                    Text = message.Text,
+                                });
                             }
                         }
                     }
