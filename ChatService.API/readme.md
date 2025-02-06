@@ -40,23 +40,82 @@ Before running the chat service, ensure you have the following installed:
    ```
 4. Save the file.
 
-### 4. Run the Infrastructure
+### 4. Configure the Moderation Service
+To use the moderation service, ensure that the MockModeration service is running, and configure the moderation settings as follows:
+
+Run the MockModeration service (if not already running).
+In your configuration file (appsettings.json), locate the Moderation section:
+   ```json
+	"Moderation": {
+	  "EnableDispatcher": true,
+	  "Pre": [
+		""
+	  ],
+	  "Post": [
+		""
+	  ],
+	  "Dispatcher": ""
+	}
+   ```
+Fill in the appropriate API URLs for Pre, Post, and Dispatcher:
+   ```json
+	"Moderation": {
+	  "EnableDispatcher": true,
+	  "Pre": [
+		"http://your-pre-api-url"
+	  ],
+	  "Post": [
+		"http://your-post-api-url"
+	  ],
+	  "Dispatcher": "http://your-dispatcher-api-url"
+	}
+   ```
+Save the configuration file.
+
+### 5. Run the Infrastructure
 
 1. Ensure your `firebase-service-account.json` file is correctly placed.
 2. Open a terminal and navigate to the project directory.
 3. Run the following command to start the infrastructure:
+
    ```sh
    docker compose up -d
    ```
+   
+4. To stop the services, run:
 
+   ```sh
+   docker compose down
+   ```
+  
+5. To check logs, use:
+
+   ```sh
+   docker compose logs -f
+   ```
+  
 This will spin up all required services using Docker Compose.
 
-## Additional Notes
-- To stop the services, run:
-  ```sh
-  docker compose down
-  ```
-- To check logs, use:
-  ```sh
-  docker compose logs -f
-  ```
+### 6. Docker Swarm Configuration
+To run the Docker stack with Docker Swarm, follow these steps:
+
+Ensure Docker Swarm Mode is Initialized
+First, make sure Docker Swarm is initialized. If it's not, you can initialize it with:
+
+```sh
+docker swarm init
+```
+
+Deploy the Stack using Docker Compose
+Deploy the stack with the following command:
+
+```sh
+docker stack deploy -c docker-compose.yml nats-stack
+```
+
+Remove the Stack
+When you're done, you can remove the stack with:
+
+```sh
+docker stack rm nats-stack
+```

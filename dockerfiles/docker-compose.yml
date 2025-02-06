@@ -9,3 +9,12 @@ services:
     volumes:
       - ./server.conf:/etc/myserver.conf
       - ./nats-data:/nats/storage
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 500M
+        reservations:
+          memory: 200M
+      restart_policy:
+        condition: on-failure

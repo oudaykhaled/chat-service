@@ -12,7 +12,7 @@ FirestoreDb firestoreDb = FirestoreDb.Create(projectId);
 Console.WriteLine($"Connected to Firestore for project: {projectId}");
 
 // Set up real-time listener
-string collectionName = "member";
+string collectionName = "message";
 Console.WriteLine($"Listening to changes in collection: {collectionName}");
 
 CollectionReference collection = firestoreDb.Collection(collectionName);

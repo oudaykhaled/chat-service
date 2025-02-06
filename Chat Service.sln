@@ -18,7 +18,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dockerfiles", "dockerfiles", "{FD4F160A-E7DB-4A57-A686-A60DF60FC0E8}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
+		dockerfiles\docker-compose.yml = dockerfiles\docker-compose.yml
 		ChatService.API\Dockerfile = ChatService.API\Dockerfile
+		dockerfiles\server.conf = dockerfiles\server.conf
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatService.MockModeration", "ChatService.MockModeration\ChatService.MockModeration.csproj", "{96AD1CBC-4D15-41EB-8007-6180F2591532}"
