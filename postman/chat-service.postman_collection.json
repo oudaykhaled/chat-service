@@ -1,0 +1,479 @@
+{
+	"info": {
+		"_postman_id": "ab33c936-ce77-4f46-bcc8-6efabbf13f0a",
+		"name": "chat-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1870924"
+	},
+	"item": [
+		{
+			"name": "Create Member",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"test\",\r\n  \"nickname\": \"test\",\r\n  \"type\": \"1\",\r\n  \"tag\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7019/api/members",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7019",
+					"path": [
+						"api",
+						"members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Member Deactivate",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7019/api/members/gRvawEQDmuhjp0jLbRny/deactivate",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7019",
+					"path": [
+						"api",
+						"members",
+						"gRvawEQDmuhjp0jLbRny",
+						"deactivate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Channel",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"memberID\": \"oTHxnHXNL8fRlnKCZAft\",\r\n  \"name\": \"channel-demo\",\r\n  \"description\": \"channel demo\",\r\n  \"type\": \"1\",\r\n  \"tag\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7019/api/channels",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7019",
+					"path": [
+						"api",
+						"channels"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Channel Member",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"memberID\": \"oTHxnHXNL8fRlnKCZAft\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7019/api/channels/MMhnU33floxvJSnQRl0y/members",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7019",
+					"path": [
+						"api",
+						"channels",
+						"MMhnU33floxvJSnQRl0y",
+						"members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Channel Message",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"memberID\": \"oTHxnHXNL8fRlnKCZAft\",\r\n  \"sessionID\": \"9fBXfLd36rxdRwkJnRuE\",\r\n  \"text\": \"hello 4\",\r\n  \"payload\": \"hello 4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7019/api/channels/MMhnU33floxvJSnQRl0y/messages",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7019",
+					"path": [
+						"api",
+						"channels",
+						"MMhnU33floxvJSnQRl0y",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Channel Deactivate",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7019/api/channels/MMhnU33floxvJSnQRl0y/deactivate",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7019",
+					"path": [
+						"api",
+						"channels",
+						"MMhnU33floxvJSnQRl0y",
+						"deactivate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Channel Message Mask",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"memberID\": \"oTHxnHXNL8fRlnKCZAft\",\r\n  \"sessionID\": \"9fBXfLd36rxdRwkJnRuE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7019/api/channels/MMhnU33floxvJSnQRl0y/messages/Cqx4PjY7EhHAlSykp11R/mask",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7019",
+					"path": [
+						"api",
+						"channels",
+						"MMhnU33floxvJSnQRl0y",
+						"messages",
+						"Cqx4PjY7EhHAlSykp11R",
+						"mask"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Channel Message Unmask",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"memberID\": \"oTHxnHXNL8fRlnKCZAft\",\r\n  \"sessionID\": \"9fBXfLd36rxdRwkJnRuE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7019/api/channels/MMhnU33floxvJSnQRl0y/messages/Cqx4PjY7EhHAlSykp11R/unmask",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7019",
+					"path": [
+						"api",
+						"channels",
+						"MMhnU33floxvJSnQRl0y",
+						"messages",
+						"Cqx4PjY7EhHAlSykp11R",
+						"unmask"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Channel Message Hide",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"memberID\": \"oTHxnHXNL8fRlnKCZAft\",\r\n  \"sessionID\": \"9fBXfLd36rxdRwkJnRuE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7019/api/channels/MMhnU33floxvJSnQRl0y/messages/Cqx4PjY7EhHAlSykp11R/hide",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7019",
+					"path": [
+						"api",
+						"channels",
+						"MMhnU33floxvJSnQRl0y",
+						"messages",
+						"Cqx4PjY7EhHAlSykp11R",
+						"hide"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Channel Message Delivered",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"memberID\": \"oTHxnHXNL8fRlnKCZAft\",\r\n  \"sessionID\": \"9fBXfLd36rxdRwkJnRuE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7019/api/channels/MMhnU33floxvJSnQRl0y/messages/Cqx4PjY7EhHAlSykp11R/delivered",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7019",
+					"path": [
+						"api",
+						"channels",
+						"MMhnU33floxvJSnQRl0y",
+						"messages",
+						"Cqx4PjY7EhHAlSykp11R",
+						"delivered"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Channel Message Seen",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"memberID\": \"oTHxnHXNL8fRlnKCZAft\",\r\n  \"sessionID\": \"9fBXfLd36rxdRwkJnRuE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7019/api/channels/MMhnU33floxvJSnQRl0y/messages/Cqx4PjY7EhHAlSykp11R/seen",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7019",
+					"path": [
+						"api",
+						"channels",
+						"MMhnU33floxvJSnQRl0y",
+						"messages",
+						"Cqx4PjY7EhHAlSykp11R",
+						"seen"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Channel Message Reply",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"memberID\": \"oTHxnHXNL8fRlnKCZAft\",\r\n  \"sessionID\": \"9fBXfLd36rxdRwkJnRuE\",\r\n  \"text\": \"hello 3\",\r\n  \"payload\": \"hello 3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7019/api/channels/MMhnU33floxvJSnQRl0y/messages/Cqx4PjY7EhHAlSykp11R/reply",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7019",
+					"path": [
+						"api",
+						"channels",
+						"MMhnU33floxvJSnQRl0y",
+						"messages",
+						"Cqx4PjY7EhHAlSykp11R",
+						"reply"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Message Delete",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"memberID\": \"oTHxnHXNL8fRlnKCZAft\",\r\n  \"sessionID\": \"9fBXfLd36rxdRwkJnRuE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7019/api/channels/MMhnU33floxvJSnQRl0y/messages/Cqx4PjY7EhHAlSykp11R",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7019",
+					"path": [
+						"api",
+						"channels",
+						"MMhnU33floxvJSnQRl0y",
+						"messages",
+						"Cqx4PjY7EhHAlSykp11R"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Channel Message Bind",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"memberID\": \"oTHxnHXNL8fRlnKCZAft\",\r\n  \"sessionID\": \"9fBXfLd36rxdRwkJnRuE\",\r\n  \"text\": \"bind\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7019/api/channels/MMhnU33floxvJSnQRl0y/messages/Cqx4PjY7EhHAlSykp11R/bind",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7019",
+					"path": [
+						"api",
+						"channels",
+						"MMhnU33floxvJSnQRl0y",
+						"messages",
+						"Cqx4PjY7EhHAlSykp11R",
+						"bind"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
