@@ -37,6 +37,7 @@ namespace ChatService.Infrastructure.Broker
         public async Task<object> Subscribe(string stream, string name, ulong? startSeq)
         {
             ConsumerConfig consumerConfig = new ConsumerConfig(name);
+            consumerConfig.AckPolicy = ConsumerConfigAckPolicy.Explicit;
 
             if (startSeq.HasValue)
             {

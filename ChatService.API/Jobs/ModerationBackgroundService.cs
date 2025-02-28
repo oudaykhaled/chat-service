@@ -1,12 +1,15 @@
 ﻿using ChatService.Application.Service;
 using ChatService.Domain;
 using ChatService.Domain.Response;
+using ChatService.Persistence;
 using Microsoft.Extensions.Options;
+using Polly;
+using System.Linq.Expressions;
 using System.Text.Json;
 
 namespace ChatService.API.Jobs
 {
-    public class ModerationBackgroundService : BackgroundService
+    public class ModerationBackgroundService : BaseBackgroundService
     {
         private readonly ILogger<ModerationBackgroundService> _logger;
         private readonly IMessageService _messageService;
@@ -61,15 +64,27 @@ namespace ChatService.API.Jobs
                         if (_moderationOptions.EnableDispatcher
                             && !string.IsNullOrWhiteSpace(_moderationOptions.Dispatcher))
                         {
-                            var client = _httpClientFactory.CreateClient();
-                            var response = await client.PostAsJsonAsync(_moderationOptions.Dispatcher, message, stoppingToken);
-                            if (response.IsSuccessStatusCode)
+                            try
                             {
-                                string json = await response.Content.ReadAsStringAsync();
-                                if (!string.IsNullOrWhiteSpace(json))
+                                await GetRetryPolicy.ExecuteAsync(async () =>
                                 {
-                                    message = JsonSerializer.Deserialize<MessageResponse>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                                }
+                                    var client = _httpClientFactory.CreateClient(ClientIntegration.Integration);
+                                    var response = await client.PostAsJsonAsync(_moderationOptions.Dispatcher, message, stoppingToken);
+                                    if (response.IsSuccessStatusCode)
+                                    {
+                                        string json = await response.Content.ReadAsStringAsync();
+                                        if (!string.IsNullOrWhiteSpace(json))
+                                        {
+                                            message = JsonSerializer.Deserialize<MessageResponse>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                                        }
+                                    }
+                                });
+                            }
+                            catch (Exception ex)
+                            {                           
+                                _logger.LogError($"Moderation request failed after retries (not reachable)");
+                                await RetryMessage(message);
+                                message = null;
                             }
                         }
 
@@ -121,6 +136,22 @@ namespace ChatService.API.Jobs
             }
 
             _logger.LogInformation("Moderation is stopping...");
+        }
+
+        private async Task<IdentityResponse> RetryMessage(MessageResponse message)
+        {
+            return await _messageService.RetryMessageAsync(new Domain.Request.RetryMessageRequest()
+            {
+                Guid = message.Guid,
+                ChannelID = message.ChannelID,
+                MemberID = message.MemberID,
+                MessageID = message.MessageID,
+                ParentID = message.ParentID,
+                Payload = message.Payload,
+                SessionID = message.SessionID,
+                Text = message.Text,
+                CreatedAt = message.CreatedAt
+            });
         }
     }
 }

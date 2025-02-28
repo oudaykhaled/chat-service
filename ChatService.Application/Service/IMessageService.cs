@@ -7,6 +7,7 @@ namespace ChatService.Application.Service
     {
         Task<IdentityResponse> AddMessageAsync(AddMessageRequest request);
         Task<IdentityResponse> EditMessageAsync(EditMessageRequest request);
+        Task<IdentityResponse> RetryMessageAsync(RetryMessageRequest request);
         Task<IdentityResponse> ModerateMessageAsync(ModerateMessageRequest request);
         Task<IdentityResponse> SideEffectAsync(SideEffectRequest request);
         Task<MessageResponse> PopSideEffectAsync(PopSideEffectRequest request);

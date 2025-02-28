@@ -125,6 +125,35 @@ namespace ChatService.Application.Service
             return response;
         }
 
+        public async Task<IdentityResponse> RetryMessageAsync(RetryMessageRequest request)
+        {
+            IdentityResponse response = new IdentityResponse();
+
+            if (request != null)
+            {
+                MessageInfo message = new MessageInfo();
+
+                message.Guid = response.ID = request.Guid;
+                message.CreatedAt = request.CreatedAt;
+                message.Text = request.Text;
+                message.Payload = request.Payload;
+                message.MemberID = request.MemberID;
+                message.ChannelID = request.ChannelID;
+                message.SessionID = request.SessionID;
+                message.ParentID = request.ParentID;
+                message.MessageID = request.MessageID;
+
+                var data = _protobufData.Build(message).ToBytes();
+
+                string streamName = string.Format(BusConstant.ModerationStream, request.ChannelID);
+                string subjectName = string.Format(BusConstant.ModerationSubject, request.ChannelID);
+
+                await _publisher.Publish(data, streamName, subjectName);
+            }
+
+            return response;
+        }
+
         public async Task<IdentityResponse> SideEffectAsync(SideEffectRequest request)
         {
             IdentityResponse response = new IdentityResponse();

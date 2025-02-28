@@ -2,6 +2,7 @@
 using ChatService.Domain;
 using ChatService.Infrastructure.Broker;
 using Microsoft.Extensions.Options;
+using static Google.Rpc.Context.AttributeContext.Types;
 
 namespace ChatService.API.Jobs
 {
@@ -51,9 +52,23 @@ namespace ChatService.API.Jobs
                                 {
                                     if (!_runningChannels.Contains(channel.ID))
                                     {
+                                        var consumer = scope.ServiceProvider.GetRequiredService<IBusConsumer>();
+
+                                        string streamName = string.Format(BusConstant.ModerationStream, channel.ID);
+                                        string subjectName = string.Format(BusConstant.ModerationSubject, channel.ID);
+                                        await consumer.CreateOrUpdateStream(streamName, subjectName);
+
+                                        streamName = string.Format(BusConstant.PreModerationStream, channel.ID);
+                                        subjectName = string.Format(BusConstant.PreModerationSubject, channel.ID);
+                                        await consumer.CreateOrUpdateStream(streamName, subjectName);
+
+                                        streamName = string.Format(BusConstant.PostModerationStream, channel.ID);
+                                        subjectName = string.Format(BusConstant.PostModerationSubject, channel.ID);
+                                        await consumer.CreateOrUpdateStream(streamName, subjectName);
+
                                         var logger = scope.ServiceProvider.GetRequiredService<ILogger<ModerationBackgroundService>>();
                                         var messageService = scope.ServiceProvider.GetRequiredService<IMessageService>();
-                                        var consumer = scope.ServiceProvider.GetRequiredService<IBusConsumer>();
+                                        
                                         var service = new ModerationBackgroundService(logger, messageService, _options, _httpClientFactory, channel.ID);
                                         await Task.Run(async () => await service.StartAsync(stoppingToken));
 
