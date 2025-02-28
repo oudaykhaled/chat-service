@@ -15,3 +15,9 @@
 /ChatService.Application/obj
 /ChatService.Persistence/obj
 /.vs/
+/ChatService.API/bin/Debug/net8.0
+/ChatService.Application/bin/Debug/net8.0
+/ChatService.Domain/bin/Debug/net8.0
+/ChatService.Infrastructure/bin/Debug/net8.0
+/ChatService.MockModeration/bin/Debug/net8.0
+/ChatService.Persistence/bin/Debug/net8.0

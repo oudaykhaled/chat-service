@@ -1,0 +1,6 @@
+echo Building MockModeration...
+dotnet build --configuration Debug ".\ChatService.MockModeration"
+
+echo Starting MockModeration...
+cd ".\ChatService.MockModeration\bin\Debug\net8.0"
+set ASPNETCORE_URLS=https://localhost:7110 && start "MockModeration" dotnet "ChatService.MockModeration.dll"

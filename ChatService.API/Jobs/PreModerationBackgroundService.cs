@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace ChatService.API.Jobs
 {
-    public class PreModerationBackgroundService : BackgroundService
+    public class PreModerationBackgroundService : BaseBackgroundService
     {
         private readonly ILogger<PreModerationBackgroundService> _logger;
         private readonly IMessageService _messageService;
@@ -54,12 +54,15 @@ namespace ChatService.API.Jobs
                             {
                                 try
                                 {
-                                    var client = _httpClientFactory.CreateClient();
-                                    var response = await client.PostAsJsonAsync(link, message, stoppingToken);
+                                    await GetRetryPolicy.ExecuteAsync(async () =>
+                                    {
+                                        var client = _httpClientFactory.CreateClient(ClientIntegration.Integration);
+                                        var response = await client.PostAsJsonAsync(link, message, stoppingToken);
+                                    });
                                 }
                                 catch { }
                             }
-                        }                      
+                        }
                     }
 
                     await Task.Delay(_moderationOptions.PreInterval, stoppingToken);

@@ -56,6 +56,7 @@ namespace ChatService.Infrastructure.Broker
                 if (message != null)
                 {
                     result.Data = message.Value.Data;
+
                     if (message.Value.Metadata != null)
                     {
                         result.Offset = message.Value.Metadata.Value.Sequence.Stream;

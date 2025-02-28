@@ -1,5 +1,6 @@
 ﻿using ChatService.Domain.Request;
 using ChatService.Domain.Response;
+using ChatService.Infrastructure.Broker;
 using ChatService.Persistence;
 using ChatService.Persistence.Exception;
 
@@ -11,7 +12,7 @@ namespace ChatService.Application.Service
         private readonly IRepository<Member> _memberRepository;
         private readonly IRepository<SessionMember> _sessionMemberRepository;
 
-        public ChannelService(IRepository<Channel> channelRepository, 
+        public ChannelService(IRepository<Channel> channelRepository,
             IRepository<Member> memberRepository,
             IRepository<SessionMember> sessionMemberRepository)
         {
@@ -42,6 +43,7 @@ namespace ChatService.Application.Service
                     channel.CreatedBy = request.MemberID;
 
                     response.ID = await _channelRepository.AddAsync(channel);
+
                     return response;
                 }
                 throw new BadRequestException($"Member '{request.MemberID}' does not exists.");

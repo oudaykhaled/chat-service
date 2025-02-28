@@ -42,6 +42,8 @@ Before running the chat service, ensure you have the following installed:
 
 ### 4. Configure the Moderation Service
 To use the moderation service, ensure that the MockModeration service is running, and configure the moderation settings as follows:
+- Run the MockModeration service using the **run-mock_moderation.bat** file found in the main folder:
+	- Simply execute the **run-mock_moderation.bat** file to start the service.
 
 Run the MockModeration service (if not already running).
 In your configuration file (appsettings.json), locate the Moderation section:
