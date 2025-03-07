@@ -1,0 +1,263 @@
+info: ChatService.API.Jobs.ModerationCoordinatorBackgroundService[0]
+      Moderation Manager is starting...
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5176
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/bin/Debug/net8.0
+info: ChatService.API.Jobs.ModerationBackgroundService[0]
+      Moderation is starting...
+info: ChatService.API.Jobs.PreModerationBackgroundService[0]
+      Moderation pre is starting...
+info: ChatService.API.Jobs.PostModerationBackgroundService[0]
+      Moderation post is starting...
+info: ChatService.API.Jobs.ModerationBackgroundService[0]
+      Moderation is starting...
+info: ChatService.API.Jobs.PreModerationBackgroundService[0]
+      Moderation pre is starting...
+info: ChatService.API.Jobs.PostModerationBackgroundService[0]
+      Moderation post is starting...
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
+fail: ChatService.API.Jobs.PreModerationBackgroundService[0]
+      Error in Moderation pre.
+      NATS.Client.JetStream.NatsJSApiNoResponseException: No API response received from the server: Timeout
+         at NATS.Client.JetStream.NatsJSContext.JSRequestAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.JSRequestResponseAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.GetConsumerAsync(String stream, String consumer, CancellationToken cancellationToken)
+         at ChatService.Infrastructure.Broker.NatsStream.Subscribe(String stream, String name, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsStream.cs:line 66
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 39
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 32
+         at ChatService.Application.Service.MessageService.PopSideEffectAsync(PopSideEffectRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/MessageService.cs:line 243
+         at ChatService.API.Jobs.PreModerationBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Jobs/PreModerationBackgroundService.cs:line 44
+fail: ChatService.API.Jobs.PreModerationBackgroundService[0]
+      Error in Moderation pre.
+      NATS.Client.JetStream.NatsJSApiNoResponseException: No API response received from the server: Timeout
+         at NATS.Client.JetStream.NatsJSContext.JSRequestAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.JSRequestResponseAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.GetConsumerAsync(String stream, String consumer, CancellationToken cancellationToken)
+         at ChatService.Infrastructure.Broker.NatsStream.Subscribe(String stream, String name, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsStream.cs:line 66
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 39
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 32
+         at ChatService.Application.Service.MessageService.PopSideEffectAsync(PopSideEffectRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/MessageService.cs:line 243
+         at ChatService.API.Jobs.PreModerationBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Jobs/PreModerationBackgroundService.cs:line 44
+fail: Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      System.ArgumentNullException: Value cannot be null. (Parameter 'path')
+         at Google.Cloud.Firestore.PathUtilities.SplitPath(String path)
+         at Google.Cloud.Firestore.CollectionReference.Document(String path)
+         at ChatService.Persistence.Repository`1.GetByIdAsync(String id) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Persistence/Repository.cs:line 89
+         at ChatService.Application.Service.ChannelService.CreateAsync(CreateChannelRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/ChannelService.cs:line 32
+         at ChatService.API.Controllers.ChannelController.Create(CreateChannelRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Controllers/ChannelController.cs:line 26
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+         at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+fail: Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      System.ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+         at System.Collections.Generic.List`1.get_Item(Int32 index)
+         at ChatService.Persistence.Repository`1.GetPagedAsync(Int32 pageSize, String startAfterDocumentId) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Persistence/Repository.cs:line 75
+         at ChatService.Application.Service.MemberService.GetPagedAsync(GetPagedRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/MemberService.cs:line 52
+         at ChatService.API.Controllers.MemberController.GetAll(GetPagedRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Controllers/MemberController.cs:line 55
+         at lambda_method50(Closure, Object)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+         at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+         at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+info: ChatService.API.Jobs.ModerationBackgroundService[0]
+      Moderation is starting...
+info: ChatService.API.Jobs.PreModerationBackgroundService[0]
+      Moderation pre is starting...
+info: ChatService.API.Jobs.PostModerationBackgroundService[0]
+      Moderation post is starting...
+info: System.Net.Http.HttpClient.integration.LogicalHandler[100]
+      Start processing HTTP request POST https://localhost:7110/api/moderations/dispatch
+info: System.Net.Http.HttpClient.integration.LogicalHandler[100]
+      Start processing HTTP request POST https://localhost:7110/api/moderations/pre
+info: System.Net.Http.HttpClient.integration.ClientHandler[100]
+      Sending HTTP request POST https://localhost:7110/api/moderations/pre
+info: System.Net.Http.HttpClient.integration.ClientHandler[100]
+      Sending HTTP request POST https://localhost:7110/api/moderations/dispatch
+info: System.Net.Http.HttpClient.integration.ClientHandler[101]
+      Received HTTP response headers after 431.2513ms - 200
+info: System.Net.Http.HttpClient.integration.LogicalHandler[101]
+      End processing HTTP request after 438.663ms - 200
+info: System.Net.Http.HttpClient.integration.LogicalHandler[100]
+      Start processing HTTP request POST https://localhost:7110/api/moderations/post
+info: System.Net.Http.HttpClient.integration.ClientHandler[100]
+      Sending HTTP request POST https://localhost:7110/api/moderations/post
+info: System.Net.Http.HttpClient.integration.ClientHandler[101]
+      Received HTTP response headers after 1008.5502ms - 200
+info: System.Net.Http.HttpClient.integration.LogicalHandler[101]
+      End processing HTTP request after 1011.9437ms - 200
+info: System.Net.Http.HttpClient.integration.ClientHandler[101]
+      Received HTTP response headers after 891.3418ms - 200
+info: System.Net.Http.HttpClient.integration.LogicalHandler[101]
+      End processing HTTP request after 891.4517ms - 200
+fail: ChatService.API.Jobs.PostModerationBackgroundService[0]
+      Error in Moderation post.
+      NATS.Client.JetStream.NatsJSApiNoResponseException: No API response received from the server: Timeout
+         at NATS.Client.JetStream.NatsJSContext.JSRequestAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.JSRequestResponseAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.CreateOrUpdateConsumerInternalAsync(String stream, ConsumerConfig config, ConsumerCreateAction action, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.CreateOrUpdateConsumerAsync(String stream, ConsumerConfig config, CancellationToken cancellationToken)
+         at ChatService.Infrastructure.Broker.NatsStream.Subscribe(String stream, String name, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsStream.cs:line 76
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 39
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 32
+         at ChatService.Application.Service.MessageService.PopSideEffectAsync(PopSideEffectRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/MessageService.cs:line 243
+         at ChatService.API.Jobs.PostModerationBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Jobs/PostModerationBackgroundService.cs:line 44
+fail: ChatService.API.Jobs.PreModerationBackgroundService[0]
+      Error in Moderation pre.
+      NATS.Client.JetStream.NatsJSApiNoResponseException: No API response received from the server: Timeout
+         at NATS.Client.JetStream.NatsJSContext.JSRequestAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.JSRequestResponseAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.GetConsumerAsync(String stream, String consumer, CancellationToken cancellationToken)
+         at ChatService.Infrastructure.Broker.NatsStream.Subscribe(String stream, String name, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsStream.cs:line 66
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 39
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 32
+         at ChatService.Application.Service.MessageService.PopSideEffectAsync(PopSideEffectRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/MessageService.cs:line 243
+         at ChatService.API.Jobs.PreModerationBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Jobs/PreModerationBackgroundService.cs:line 44
+fail: ChatService.API.Jobs.PostModerationBackgroundService[0]
+      Error in Moderation post.
+      NATS.Client.JetStream.NatsJSApiNoResponseException: No API response received from the server: Timeout
+         at NATS.Client.JetStream.NatsJSContext.JSRequestAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.JSRequestResponseAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.GetConsumerAsync(String stream, String consumer, CancellationToken cancellationToken)
+         at ChatService.Infrastructure.Broker.NatsStream.Subscribe(String stream, String name, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsStream.cs:line 66
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 39
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 32
+         at ChatService.Application.Service.MessageService.PopSideEffectAsync(PopSideEffectRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/MessageService.cs:line 243
+         at ChatService.API.Jobs.PostModerationBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Jobs/PostModerationBackgroundService.cs:line 44
+fail: ChatService.API.Jobs.ModerationBackgroundService[0]
+      Error in Moderation.
+      NATS.Client.JetStream.NatsJSApiNoResponseException: No API response received from the server: Timeout
+         at NATS.Client.JetStream.NatsJSContext.JSRequestAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.JSRequestResponseAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.CreateOrUpdateConsumerInternalAsync(String stream, ConsumerConfig config, ConsumerCreateAction action, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.CreateOrUpdateConsumerAsync(String stream, ConsumerConfig config, CancellationToken cancellationToken)
+         at ChatService.Infrastructure.Broker.NatsStream.Subscribe(String stream, String name, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsStream.cs:line 76
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 39
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 32
+         at ChatService.Application.Service.MessageService.PopMessageAsync(PopMessageRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/MessageService.cs:line 351
+         at ChatService.API.Jobs.ModerationBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Jobs/ModerationBackgroundService.cs:line 41
+fail: ChatService.API.Jobs.PostModerationBackgroundService[0]
+      Error in Moderation post.
+      NATS.Client.JetStream.NatsJSApiNoResponseException: No API response received from the server: Timeout
+         at NATS.Client.JetStream.NatsJSContext.JSRequestAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.JSRequestResponseAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.CreateOrUpdateConsumerInternalAsync(String stream, ConsumerConfig config, ConsumerCreateAction action, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.CreateOrUpdateConsumerAsync(String stream, ConsumerConfig config, CancellationToken cancellationToken)
+         at ChatService.Infrastructure.Broker.NatsStream.Subscribe(String stream, String name, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsStream.cs:line 76
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 39
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 32
+         at ChatService.Application.Service.MessageService.PopSideEffectAsync(PopSideEffectRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/MessageService.cs:line 243
+         at ChatService.API.Jobs.PostModerationBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Jobs/PostModerationBackgroundService.cs:line 44
+fail: ChatService.API.Jobs.PreModerationBackgroundService[0]
+      Error in Moderation pre.
+      NATS.Client.JetStream.NatsJSApiNoResponseException: No API response received from the server: Timeout
+         at NATS.Client.JetStream.NatsJSContext.JSRequestAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.JSRequestResponseAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.GetConsumerAsync(String stream, String consumer, CancellationToken cancellationToken)
+         at ChatService.Infrastructure.Broker.NatsStream.Subscribe(String stream, String name, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsStream.cs:line 66
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 39
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 32
+         at ChatService.Application.Service.MessageService.PopSideEffectAsync(PopSideEffectRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/MessageService.cs:line 243
+         at ChatService.API.Jobs.PreModerationBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Jobs/PreModerationBackgroundService.cs:line 44
+fail: ChatService.API.Jobs.PreModerationBackgroundService[0]
+      Error in Moderation pre.
+      NATS.Client.JetStream.NatsJSApiNoResponseException: No API response received from the server: Timeout
+         at NATS.Client.JetStream.NatsJSContext.JSRequestAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.JSRequestResponseAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.GetConsumerAsync(String stream, String consumer, CancellationToken cancellationToken)
+         at ChatService.Infrastructure.Broker.NatsStream.Subscribe(String stream, String name, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsStream.cs:line 66
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 39
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 32
+         at ChatService.Application.Service.MessageService.PopSideEffectAsync(PopSideEffectRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/MessageService.cs:line 243
+         at ChatService.API.Jobs.PreModerationBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Jobs/PreModerationBackgroundService.cs:line 44
+fail: ChatService.API.Jobs.PreModerationBackgroundService[0]
+      Error in Moderation pre.
+      NATS.Client.JetStream.NatsJSApiNoResponseException: No API response received from the server: Timeout
+         at NATS.Client.JetStream.NatsJSContext.JSRequestAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.JSRequestResponseAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.GetConsumerAsync(String stream, String consumer, CancellationToken cancellationToken)
+         at ChatService.Infrastructure.Broker.NatsStream.Subscribe(String stream, String name, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsStream.cs:line 66
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 39
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 32
+         at ChatService.Application.Service.MessageService.PopSideEffectAsync(PopSideEffectRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/MessageService.cs:line 243
+         at ChatService.API.Jobs.PreModerationBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Jobs/PreModerationBackgroundService.cs:line 44
+fail: ChatService.API.Jobs.PostModerationBackgroundService[0]
+      Error in Moderation post.
+      NATS.Client.JetStream.NatsJSApiNoResponseException: No API response received from the server: Timeout
+         at NATS.Client.JetStream.NatsJSContext.JSRequestAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.JSRequestResponseAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.GetConsumerAsync(String stream, String consumer, CancellationToken cancellationToken)
+         at ChatService.Infrastructure.Broker.NatsStream.Subscribe(String stream, String name, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsStream.cs:line 66
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 39
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 32
+         at ChatService.Application.Service.MessageService.PopSideEffectAsync(PopSideEffectRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/MessageService.cs:line 243
+         at ChatService.API.Jobs.PostModerationBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Jobs/PostModerationBackgroundService.cs:line 44
+fail: ChatService.API.Jobs.PostModerationBackgroundService[0]
+      Error in Moderation post.
+      NATS.Client.JetStream.NatsJSApiNoResponseException: No API response received from the server: Timeout
+         at NATS.Client.JetStream.NatsJSContext.JSRequestAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.JSRequestResponseAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.GetConsumerAsync(String stream, String consumer, CancellationToken cancellationToken)
+         at ChatService.Infrastructure.Broker.NatsStream.Subscribe(String stream, String name, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsStream.cs:line 66
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 39
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 32
+         at ChatService.Application.Service.MessageService.PopSideEffectAsync(PopSideEffectRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/MessageService.cs:line 243
+         at ChatService.API.Jobs.PostModerationBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Jobs/PostModerationBackgroundService.cs:line 44
+fail: ChatService.API.Jobs.ModerationBackgroundService[0]
+      Error in Moderation.
+      NATS.Client.JetStream.NatsJSApiNoResponseException: No API response received from the server: Timeout
+         at NATS.Client.JetStream.NatsJSContext.JSRequestAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.JSRequestResponseAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.CreateOrUpdateConsumerInternalAsync(String stream, ConsumerConfig config, ConsumerCreateAction action, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.CreateOrUpdateConsumerAsync(String stream, ConsumerConfig config, CancellationToken cancellationToken)
+         at ChatService.Infrastructure.Broker.NatsStream.Subscribe(String stream, String name, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsStream.cs:line 76
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 39
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 32
+         at ChatService.Application.Service.MessageService.PopMessageAsync(PopMessageRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/MessageService.cs:line 351
+         at ChatService.API.Jobs.ModerationBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Jobs/ModerationBackgroundService.cs:line 41
+fail: ChatService.API.Jobs.PreModerationBackgroundService[0]
+      Error in Moderation pre.
+      NATS.Client.JetStream.NatsJSApiNoResponseException: No API response received from the server: Timeout
+         at NATS.Client.JetStream.NatsJSContext.JSRequestAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.JSRequestResponseAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.CreateOrUpdateConsumerInternalAsync(String stream, ConsumerConfig config, ConsumerCreateAction action, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.CreateOrUpdateConsumerAsync(String stream, ConsumerConfig config, CancellationToken cancellationToken)
+         at ChatService.Infrastructure.Broker.NatsStream.Subscribe(String stream, String name, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsStream.cs:line 76
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 39
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 32
+         at ChatService.Application.Service.MessageService.PopSideEffectAsync(PopSideEffectRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/MessageService.cs:line 243
+         at ChatService.API.Jobs.PreModerationBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Jobs/PreModerationBackgroundService.cs:line 44
+fail: ChatService.API.Jobs.ModerationBackgroundService[0]
+      Error in Moderation.
+      NATS.Client.JetStream.NatsJSApiNoResponseException: No API response received from the server: Timeout
+         at NATS.Client.JetStream.NatsJSContext.JSRequestAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.JSRequestResponseAsync[TRequest,TResponse](String subject, TRequest request, CancellationToken cancellationToken)
+         at NATS.Client.JetStream.NatsJSContext.GetConsumerAsync(String stream, String consumer, CancellationToken cancellationToken)
+         at ChatService.Infrastructure.Broker.NatsStream.Subscribe(String stream, String name, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsStream.cs:line 66
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable, Nullable`1 startSeq) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 39
+         at ChatService.Infrastructure.Broker.NatsConsumer.Subscribe(String stream, String durable) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Infrastructure/Broker/NatsConsumer.cs:line 32
+         at ChatService.Application.Service.MessageService.PopMessageAsync(PopMessageRequest request) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.Application/Service/MessageService.cs:line 351
+         at ChatService.API.Jobs.ModerationBackgroundService.ExecuteAsync(CancellationToken stoppingToken) in /Users/oudaykhaled/Desktop/olivuim/chat-service/ChatService.API/Jobs/ModerationBackgroundService.cs:line 41
+Out of memory.

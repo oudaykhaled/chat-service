@@ -1,0 +1,41 @@
+[17654] 2025/03/07 05:01:43.232078 [INF] Starting nats-server
+[17654] 2025/03/07 05:01:43.233501 [INF]   Version:  2.10.26
+[17654] 2025/03/07 05:01:43.233507 [INF]   Git:      [not set]
+[17654] 2025/03/07 05:01:43.233510 [INF]   Name:     NAYUS5P6LIC3U32HYK4NQFHDFSA2YN67XA3LXQF3OPJEU3IMSRHMDE7W
+[17654] 2025/03/07 05:01:43.233517 [INF]   Node:     AjK5IEU8
+[17654] 2025/03/07 05:01:43.233519 [INF]   ID:       NAYUS5P6LIC3U32HYK4NQFHDFSA2YN67XA3LXQF3OPJEU3IMSRHMDE7W
+[17654] 2025/03/07 05:01:43.233534 [WRN] Plaintext passwords detected, use nkeys or bcrypt
+[17654] 2025/03/07 05:01:43.235091 [INF] Starting http monitor on 0.0.0.0:8222
+[17654] 2025/03/07 05:01:43.235346 [INF] Starting JetStream
+[17654] 2025/03/07 05:01:43.235828 [INF]     _ ___ _____ ___ _____ ___ ___   _   __  __
+[17654] 2025/03/07 05:01:43.235836 [INF]  _ | | __|_   _/ __|_   _| _ \ __| /_\ |  \/  |
+[17654] 2025/03/07 05:01:43.235839 [INF] | || | _|  | | \__ \ | | |   / _| / _ \| |\/| |
+[17654] 2025/03/07 05:01:43.235843 [INF]  \__/|___| |_| |___/ |_| |_|_\___/_/ \_\_|  |_|
+[17654] 2025/03/07 05:01:43.235847 [INF] 
+[17654] 2025/03/07 05:01:43.235849 [INF]          https://docs.nats.io/jetstream
+[17654] 2025/03/07 05:01:43.235850 [INF] 
+[17654] 2025/03/07 05:01:43.235852 [INF] ---------------- JETSTREAM ----------------
+[17654] 2025/03/07 05:01:43.235856 [INF]   Max Memory:      24.00 GB
+[17654] 2025/03/07 05:01:43.235859 [INF]   Max Storage:     11.47 GB
+[17654] 2025/03/07 05:01:43.235861 [INF]   Store Directory: "/tmp/nats-jetstream/jetstream/jetstream"
+[17654] 2025/03/07 05:01:43.235863 [INF] -------------------------------------------
+[17654] 2025/03/07 05:01:43.236614 [INF]   Starting restore for stream '$G > chatservice_GS85DaoQF61hIznILOea_moderation_stream'
+[17654] 2025/03/07 05:01:43.238904 [INF]   Restored 0 messages for stream '$G > chatservice_GS85DaoQF61hIznILOea_moderation_stream' in 2ms
+[17654] 2025/03/07 05:01:43.239189 [INF]   Starting restore for stream '$G > chatservice_GS85DaoQF61hIznILOea_post_moderation_stream'
+[17654] 2025/03/07 05:01:43.239575 [INF]   Restored 0 messages for stream '$G > chatservice_GS85DaoQF61hIznILOea_post_moderation_stream' in 0s
+[17654] 2025/03/07 05:01:43.239720 [INF]   Starting restore for stream '$G > chatservice_GS85DaoQF61hIznILOea_pre_moderation_stream'
+[17654] 2025/03/07 05:01:43.240114 [INF]   Restored 0 messages for stream '$G > chatservice_GS85DaoQF61hIznILOea_pre_moderation_stream' in 0s
+[17654] 2025/03/07 05:01:43.240366 [INF]   Starting restore for stream '$G > chatservice_VXix7MniD9PGinDpXTth_moderation_stream'
+[17654] 2025/03/07 05:01:43.241043 [INF]   Restored 0 messages for stream '$G > chatservice_VXix7MniD9PGinDpXTth_moderation_stream' in 1ms
+[17654] 2025/03/07 05:01:43.241209 [INF]   Starting restore for stream '$G > chatservice_VXix7MniD9PGinDpXTth_post_moderation_stream'
+[17654] 2025/03/07 05:01:43.241586 [INF]   Restored 0 messages for stream '$G > chatservice_VXix7MniD9PGinDpXTth_post_moderation_stream' in 0s
+[17654] 2025/03/07 05:01:43.241817 [INF]   Starting restore for stream '$G > chatservice_VXix7MniD9PGinDpXTth_pre_moderation_stream'
+[17654] 2025/03/07 05:01:43.242095 [INF]   Restored 0 messages for stream '$G > chatservice_VXix7MniD9PGinDpXTth_pre_moderation_stream' in 0s
+[17654] 2025/03/07 05:01:43.242121 [INF]   Recovering 1 consumers for stream - '$G > chatservice_GS85DaoQF61hIznILOea_moderation_stream'
+[17654] 2025/03/07 05:01:43.243153 [INF]   Recovering 1 consumers for stream - '$G > chatservice_GS85DaoQF61hIznILOea_post_moderation_stream'
+[17654] 2025/03/07 05:01:43.243471 [INF]   Recovering 1 consumers for stream - '$G > chatservice_GS85DaoQF61hIznILOea_pre_moderation_stream'
+[17654] 2025/03/07 05:01:43.243958 [INF]   Recovering 1 consumers for stream - '$G > chatservice_VXix7MniD9PGinDpXTth_moderation_stream'
+[17654] 2025/03/07 05:01:43.244342 [INF]   Recovering 1 consumers for stream - '$G > chatservice_VXix7MniD9PGinDpXTth_post_moderation_stream'
+[17654] 2025/03/07 05:01:43.244640 [INF]   Recovering 1 consumers for stream - '$G > chatservice_VXix7MniD9PGinDpXTth_pre_moderation_stream'
+[17654] 2025/03/07 05:01:43.245009 [INF] Listening for client connections on 0.0.0.0:4222
+[17654] 2025/03/07 05:01:43.245160 [INF] Server is ready
