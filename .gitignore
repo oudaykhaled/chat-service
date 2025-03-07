@@ -21,3 +21,13 @@
 /ChatService.Infrastructure/bin/Debug/net8.0
 /ChatService.MockModeration/bin/Debug/net8.0
 /ChatService.Persistence/bin/Debug/net8.0
+
+# Exclude all bin directories
+**/bin/
+**/obj/
+
+# Firebase service account files
+**/firebase-service-account.json
+
+# macOS system files
+.DS_Store
